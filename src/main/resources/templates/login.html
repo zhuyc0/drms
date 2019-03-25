@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ZH">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>用户登陆</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" />
+    <link rel="stylesheet" href="/css/login.css" />
+</head>
+<body>
+<div class="layui-container">
+    <div class="layadmin-user-login-main center">
+        <form id="login" class="layadmin-user-login-box layadmin-user-login-body layui-form">
+            <div class="layui-form-item">
+                <div class="logo">
+                    <img src="https://spring.io/img/homepage/icon-spring-boot.svg" />
+                </div>
+                <h3 class="title">后台管理系统</h3>
+            </div>
+            <div class="layui-form-item">
+                <input name="username" lay-verify="required|username" placeholder="默认账号guest" class="my-layui-input" type="text" value="admin">
+            </div>
+            <div class="layui-form-item">
+                <input name="password" lay-verify="required|password" placeholder="默认密码guest" class="my-layui-input" type="password" value="admin">
+            </div>
+            <div class="layui-form-item">
+                <button class="my-layui-btn" lay-submit lay-filter="LAY-user-login-submit">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/layui/layui.js"></script>
+<script type="text/javascript" src="/js/public.js"></script>
+<script type="text/javascript" src="/js/login.js"></script>
+</html>
