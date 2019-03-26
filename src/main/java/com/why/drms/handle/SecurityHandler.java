@@ -42,7 +42,7 @@ public class SecurityHandler {
 			public void onAuthenticationSuccess(HttpServletRequest request,
 												HttpServletResponse response,
                                                 Authentication authentication) throws IOException, ServletException {
-				ResponseUtil.responseJson(response, HttpStatus.OK.value(), ResultUtil.success());
+				ResponseUtil.responseJson(response, HttpStatus.OK.value(), ResultUtil.successMsg("登陆成功！"));
 			}
 		};
 	}
@@ -94,9 +94,13 @@ public class SecurityHandler {
 			@Override
 			public void commence(HttpServletRequest request,
 								 HttpServletResponse response,
-                                 AuthenticationException authException) {
-				Result result = new Result(HttpStatus.UNAUTHORIZED.value(),"请登录后在操作");
-				ResponseUtil.responseJson(response, HttpStatus.UNAUTHORIZED.value(), result);
+                                 AuthenticationException authException) throws IOException {
+				if (ExceptionHandle.isAjax(request)){
+					Result result = new Result(HttpStatus.UNAUTHORIZED.value(),"请登录后在操作");
+					ResponseUtil.responseJson(response, HttpStatus.UNAUTHORIZED.value(), result);
+				}else {
+					response.sendRedirect("/login.html");
+				}
 			}
 		};
 	}
@@ -112,7 +116,7 @@ public class SecurityHandler {
 			public void onLogoutSuccess(HttpServletRequest request,
 										HttpServletResponse response,
                                         Authentication authentication){
-				Result result = new Result(HttpStatus.UNAUTHORIZED.value(),"退出成功");
+				Result result = new Result(HttpStatus.OK.value(),"退出成功");
 				ResponseUtil.responseJson(response, HttpStatus.OK.value(), result);
 			}
 		};

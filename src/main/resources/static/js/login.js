@@ -5,20 +5,22 @@ layui.use(['layer', 'form', 'element', 'jquery'], function() {
 
     //提交
     form.on('submit(LAY-user-login-submit)', function(data) {
-        $.post('/loginlll', $('#login').serialize(),
-            function(result) {
-                // layer.closeAll('loading');
-                console.log(result);
-                return false;
-                if(result.code == "0"){
-                    layer.msg(result.msg, {icon: 1,time: 1000}, function() {
-                        parent.window.location.href = '/index'
-                    });
+        $.ajax({
+            type:"post",
+            url:"/login",
+            contentType:"application/x-www-form-urlencoded",
+            data:data.field,
+            success:(result)=>{
+                if(result.code === 0){
+                    layer.msg(result.msg,{
+                        icon: 6,
+                        time: 1500
+                    },()=>{parent.window.location="/index.html"});
                 }else {
-                    layer.msg(result.msg,{icon:2,time:1000});
+                    layer.msg(result.msg,{icon:5,time:1000});
                 }
             }
-        );
+        });
         return false;
     });
     //表单验证

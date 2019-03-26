@@ -49,7 +49,7 @@ public class ExceptionHandle {
      * 通过请求头判断
      *是否为ajax请求
      */
-    private static boolean isAjax(HttpServletRequest request) {
+    public static boolean isAjax(HttpServletRequest request) {
         String handle = request.getHeader("X-Requested-With");
         return ("XMLHttpRequest".equals(handle));
     }

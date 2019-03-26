@@ -24,6 +24,23 @@ public class ResultUtil{
         resultVO.setData(data);
         return resultVO;
     }
+    public static Result<Object> successMsg(String msg){
+        return successMsg(msg,null);
+    }
+    public static Result<Object> successMsg(String msg,Object data){
+        Result<Object> resultVO = new Result<>();
+        resultVO.setCode(0);
+        resultVO.setMsg(msg);
+        resultVO.setData(data);
+        return resultVO;
+    }
+    public static Result<Object> success(String msg,Object data){
+        Result<Object> resultVO = new Result<>();
+        resultVO.setCode(0);
+        resultVO.setMsg(msg);
+        resultVO.setData(data);
+        return resultVO;
+    }
     public static Result error(Integer code ,String msg){
         return error(code,msg,null);
     }
@@ -38,7 +55,7 @@ public class ResultUtil{
         return error(error,null);
     }
     public static Result<Object> error(SystemErrorEnum error, Object data){
-        Result<Object> result = error(error);
+        Result<Object> result = new Result<>(error);
         result.setData(data);
         return result;
     }

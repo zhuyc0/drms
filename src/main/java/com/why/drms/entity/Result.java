@@ -1,5 +1,6 @@
 package com.why.drms.entity;
 
+import com.why.drms.enums.SystemErrorEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -22,5 +23,9 @@ public class Result<T> {
     public Result(Integer code,String msg){
         this.code = code;
         this.msg = msg;
+    }
+    public Result(SystemErrorEnum error){
+        this.code = error.getCode();
+        this.msg = error.getMsg();
     }
 }

@@ -1,17 +1,19 @@
 package com.why.drms.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author why
@@ -40,6 +42,7 @@ public class UserEntity implements Serializable {
     /**
      * 密码
      */
+    @JsonIgnore
     @TableField("password")
     private String password;
 
@@ -52,6 +55,7 @@ public class UserEntity implements Serializable {
     /**
      * 状态
      */
+    @JsonIgnore
     @TableField("status")
     private Integer status;
 

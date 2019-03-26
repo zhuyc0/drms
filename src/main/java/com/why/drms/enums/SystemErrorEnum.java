@@ -11,9 +11,20 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public enum SystemErrorEnum {
     /**
-     * 服务器异常
      */
-    SYSTEM_ERROR(500,"服务器异常"),
+    PARAM_NULL(10,"传入参数为空！"),
+    /**
+     */
+    PASS_ERROR(11,"原密码不正确！"),
+    /**
+     */
+    PASS_EQ(11,"请勿使用原密码！"),
+    /**
+     */
+    UPDATE_ERROR(20,"修改失败！"),
+    /**
+     */
+    SYSTEM_ERROR(500,"服务器异常！"),
     ;
     /**
      * 错误代码
