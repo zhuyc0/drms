@@ -1,23 +1,35 @@
-layui.use('table', function(){
-    var table = layui.table;
+layui.use(['table','form'], function(){
+    let table = layui.table,
+        form = layui.form;
 
     //第一个实例
     table.render({
         elem: '#demo'
-        ,height: 312
+        ,height: 'full-200'
         ,url: '' //数据接口
+        ,method:'get'
         ,page: true //开启分页
         ,cols: [[ //表头
-            {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
-            ,{field: 'username', title: '用户名', width:80}
-            ,{field: 'sex', title: '性别', width:80, sort: true}
-            ,{field: 'city', title: '城市', width:80}
-            ,{field: 'sign', title: '签名', width: 177}
-            ,{field: 'experience', title: '积分', width: 80, sort: true}
-            ,{field: 'score', title: '评分', width: 80, sort: true}
-            ,{field: 'classify', title: '职业', width: 80}
-            ,{field: 'wealth', title: '财富', width: 135, sort: true}
-        ]]
+            {title:"序号",type:"numbers"},
+            {field: 'id', hide: true}
+            ,{field: 'campus', title: '校区'}
+            ,{field: 'createTime', title: '创建时间', sort: true}
+            ,{title: '操作', align:'center',width: 300, toolbar: "#barDemo"}
+        ]],
+        request: {
+            pageName: 'page',
+            limitName: 'pageSize'
+        },
+        response: {
+            statusName: 'code',
+            statusCode: 0,
+            msgName: 'msg',
+            countName: 'count',
+            dataName: 'data'
+        },
+        done: function (res, curr, count) {
+            layer.closeAll('loading');
+        }
     });
 
 });
