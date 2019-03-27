@@ -1,4 +1,7 @@
-let drmsMsg ;
+let drmsMsg;
+let drmsTips;
+let getCampus;
+let getFloors;
 layui.use(["layer"], function () {
     let layer = layui.layer,
         $ = layui.$;
@@ -56,8 +59,38 @@ layui.use(["layer"], function () {
                 }
             });
         }
-    }
+    };
+    drmsTips=(res,obj)=>{
+        layer.tips(res.msg, obj);
+    };
+    getCampus=()=>{
+        let campuses;
+        $.ajax({
+            type: "get",
+            url:"/campusEntity/campuses",
+            async:false,
+            success:(res)=>{
+                campuses = res.data;
+            }
+        });
+        return campuses;
+    };
+    getFloors=()=>{
+        let floors;
+        $.ajax({
+            type: "get",
+            url:"/dormitoryFloorEntity/floors",
+            async:false,
+            success:(res)=>{
+                floors = res.data;
+            }
+        });
+        return floors;
+    };
     $("#refresh").on("click",(e)=>{
         location.reload();
+    });
+    $("#backbtn").on('click', function () {
+        history.back(-1);
     });
 });

@@ -15,6 +15,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * <p>
  *  前端控制器
@@ -42,13 +44,18 @@ public class CampusController {
         if (entity.getEndDate()!=null){
             wrapper.le("create_time",entity.getEndDate());
         }
-        IPage<CampusEntity> page = service.page(new Page<>(lp.getPage(), lp.getPageSize()),wrapper);
-        return ResultUtil.success(page.getRecords(),Math.toIntExact(page.getTotal()));
+        if (lp.getPage()==null){
+            List<CampusEntity> list = service.list();
+            return ResultUtil.success(list,list.size());
+        }else{
+            IPage<CampusEntity> page = service.page(new Page<>(lp.getPage(), lp.getPageSize()),wrapper);
+            return ResultUtil.success(page.getRecords(),Math.toIntExact(page.getTotal()));
+        }
     }
 
     @DeleteMapping("campus")
     public Result delCampus(@RequestBody Integer id){
-        if (id<0){
+        if (id==null || id<0){
             return ResultUtil.error(SystemErrorEnum.PARAM_NULL);
         }
         CampusEntity entity = new CampusEntity();
@@ -62,7 +69,7 @@ public class CampusController {
 
     @PutMapping("campus")
     public Result putCampus(@RequestBody CampusEntity entity){
-        if (entity.getId()<0){
+        if (entity.getId()==null || entity.getId()<0){
             return ResultUtil.error(SystemErrorEnum.PARAM_NULL);
         }
         if (service.updateById(entity)){

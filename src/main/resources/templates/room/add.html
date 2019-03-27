@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>用户添加--DRMS后台管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all"/>
+    <style type="text/css">
+        .layui-form-item .layui-inline {
+            width: 33.333%;
+            float: left;
+            margin-right: 0;
+        }
+
+        @media (max-width: 1240px) {
+            .layui-form-item .layui-inline {
+                width: 100%;
+                float: none;
+            }
+        }
+    </style>
+</head>
+<body class="childrenBody">
+<div style="margin: 20px 20px">
+    <div style="width: 100%;position: relative">
+        <button id="backbtn" class="layui-btn layui-btn-xs" style="position: absolute;top: 0;right: 0;"><i
+                class="layui-icon">&#xe65c;</i>返回
+        </button>
+    </div>
+    <form class="layui-form" style="width:80%;">
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" lay-verify="required" placeholder="请输入姓名" autocomplete="off">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">登录名</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" lay-verify="required" placeholder="请输入登录名" autocomplete="off">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+                <input type="password" class="layui-input" lay-verify="required" placeholder="请输入密码" autocomplete="off">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">类型</label>
+            <div class="layui-input-block">
+                <select name="role">
+                    <option value="admin" checked>管理员</option>
+                    <option value="sys">系统管理员</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">校区</label>
+            <div class="layui-input-block">
+                <select name="campusId" lay-filter="campusId" id="campusId">
+                    <option value="">请选择校区</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">楼栋</label>
+            <div class="layui-input-block">
+                <select name="floorId" id="floorId">
+                    <option value="">请选择楼栋</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="addform">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/layui/layui.js"></script>
+<script type="text/javascript" src="/js/public.js"></script>
+<script type="text/javascript" src="/js/user/add.js"></script>
+</body>
+</html>

@@ -1,18 +1,16 @@
 package com.why.drms.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author why
@@ -48,6 +46,7 @@ public class ViolationEntity implements Serializable {
      * 删除
      */
     @TableField("status")
+    @TableLogic
     private Integer status;
 
     /**
@@ -92,5 +91,15 @@ public class ViolationEntity implements Serializable {
     @TableField("room_name")
     private String roomName;
 
+    /**
+     * 登记人ID
+     */
+    @TableField("reg_id")
+    private Integer regId;
 
+    /**
+     * 登记人名称
+     */
+    @TableField("reg_name")
+    private String regName;
 }

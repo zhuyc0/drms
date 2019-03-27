@@ -2,9 +2,9 @@ package com.why.drms.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.why.drms.entity.DormitoryFloorEntity;
-import com.why.drms.entity.Result;
-import com.why.drms.entity.UserEntity;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.why.drms.entity.*;
 import com.why.drms.enums.SystemErrorEnum;
 import com.why.drms.service.DormitoryFloorService;
 import com.why.drms.service.UserService;
@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -85,5 +86,57 @@ public class UserController {
             }
         }
         return ResultUtil.error(SystemErrorEnum.PASS_ERROR);
+    }
+
+    @GetMapping("users")
+    public Result getUsers(LayuiPage lp,UserEntity entity){
+        QueryWrapper<UserEntity> wrapper = new QueryWrapper<>();
+        if (StringUtils.isNotBlank(entity.getName())){
+            wrapper.like("name",entity.getName());
+        }
+        if (StringUtils.isNotBlank(entity.getUsername())){
+            wrapper.like("username",entity.getUsername());
+        }
+        if (StringUtils.isNotBlank(entity.getRole())){
+            wrapper.eq("role",entity.getRole());
+        }
+        if (entity.getCampusId()!=null && entity.getCampusId()>=0){
+            wrapper.eq("floor_id",entity.getCampusId());
+        }
+        if (entity.getFloorId()!=null && entity.getFloorId()>=0){
+            wrapper.eq("floor_id",entity.getFloorId());
+        }
+        IPage<UserEntity> page = service.page(new Page<>(lp.getPage(), lp.getPageSize()), wrapper);
+        return ResultUtil.success(page.getRecords(),(int)page.getTotal());
+    }
+
+    @PutMapping("user")
+    public Result putUsers(@RequestBody UserEntity entity){
+        if (entity.getId()==null||entity.getId()<0){
+            return ResultUtil.error(SystemErrorEnum.PARAM_NULL);
+        }
+        if (service.updateById(entity)){
+            return ResultUtil.successMsg("修改成功！");
+        }
+        return ResultUtil.error(SystemErrorEnum.UPDATE_ERROR);
+    }
+
+    @DeleteMapping("user")
+    public Result delUsers(@RequestBody List<Integer> ids){
+        if (ids==null||ids.size()<1){
+            return ResultUtil.error(SystemErrorEnum.PARAM_NULL);
+        }
+        if (service.removeByIds(ids)){
+            return ResultUtil.successMsg("删除成功！");
+        }
+        return ResultUtil.error(SystemErrorEnum.DEL_ERROR);
+    }
+
+    @PostMapping("user")
+    public Result addUsers(@RequestBody UserEntity entity){
+        if (service.save(entity)){
+            return ResultUtil.successMsg("添加成功！");
+        }
+        return ResultUtil.error(SystemErrorEnum.ADD_ERROR);
     }
 }
