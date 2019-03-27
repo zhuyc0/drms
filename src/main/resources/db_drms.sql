@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 26/03/2019 19:35:36
+ Date: 27/03/2019 14:59:33
 */
 
 SET NAMES utf8mb4;
@@ -25,7 +25,7 @@ CREATE TABLE `campus`  (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '校区编号',
   `campus` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '校区名称',
   `status` int(1) NULL DEFAULT 1 COMMENT '是否删除',
-  `creat_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -34,6 +34,17 @@ CREATE TABLE `campus`  (
 -- ----------------------------
 INSERT INTO `campus` VALUES (1, '双桥校区', 1, '2019-03-25 15:58:47');
 INSERT INTO `campus` VALUES (2, '南泉校区', 1, '2019-03-25 16:07:03');
+INSERT INTO `campus` VALUES (3, 'testadmin', 0, '2019-03-27 14:08:54');
+INSERT INTO `campus` VALUES (4, '大族小区', 1, '2019-03-27 14:43:52');
+INSERT INTO `campus` VALUES (5, '重庆校区', 1, '2019-03-27 14:44:22');
+INSERT INTO `campus` VALUES (6, '北京校区', 1, '2019-03-27 14:47:08');
+INSERT INTO `campus` VALUES (7, '上海小区', 1, '2019-03-27 14:47:42');
+INSERT INTO `campus` VALUES (8, '深圳校区', 1, '2019-03-27 14:48:05');
+INSERT INTO `campus` VALUES (9, '广东校区', 1, '2019-03-27 14:48:09');
+INSERT INTO `campus` VALUES (10, '天津校区', 1, '2019-03-27 14:48:45');
+INSERT INTO `campus` VALUES (11, '测试校区', 1, '2019-03-27 14:49:29');
+INSERT INTO `campus` VALUES (12, '测试校区1', 1, '2019-03-27 14:49:35');
+INSERT INTO `campus` VALUES (13, '测试校区2', 1, '2019-03-27 14:49:49');
 
 -- ----------------------------
 -- Table structure for dormitory_floor
