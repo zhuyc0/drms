@@ -22,6 +22,7 @@ public class ResultUtil{
         resultVO.setCode(0);
         resultVO.setMsg("success");
         resultVO.setData(data);
+        resultVO.setCount(count);
         return resultVO;
     }
     public static Result<Object> successMsg(String msg){

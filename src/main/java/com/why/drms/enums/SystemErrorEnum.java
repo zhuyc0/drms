@@ -18,10 +18,16 @@ public enum SystemErrorEnum {
     PASS_ERROR(11,"原密码不正确！"),
     /**
      */
-    PASS_EQ(11,"请勿使用原密码！"),
+    PASS_EQ(12,"请勿使用原密码！"),
     /**
      */
     UPDATE_ERROR(20,"修改失败！"),
+    /**
+     */
+    DEL_ERROR(30,"删除失败！"),
+    /**
+     */
+    ADD_ERROR(30,"添加失败！"),
     /**
      */
     SYSTEM_ERROR(500,"服务器异常！"),

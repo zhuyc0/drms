@@ -1,3 +1,4 @@
+let drmsMsg ;
 layui.use(["layer"], function () {
     let layer = layui.layer,
         $ = layui.$;
@@ -40,5 +41,23 @@ layui.use(["layer"], function () {
         complete: function () {
             layer.closeAll("loading");
         }
+    });
+    drmsMsg=(res,s_call,e_call)=>{
+        if (res.code===0){
+            layer.msg(res.msg,{icon: 6,time: 1500},()=>{
+                if (typeof s_call === "function"){
+                    s_call();
+                }
+            });
+        } else{
+            layer.msg(res.msg,{icon: 5,time: 1500},()=>{
+                if (typeof e_call === "function"){
+                    e_call();
+                }
+            });
+        }
+    }
+    $("#refresh").on("click",(e)=>{
+        location.reload();
     });
 });
