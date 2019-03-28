@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 27/03/2019 14:59:33
+ Date: 28/03/2019 19:45:56
 */
 
 SET NAMES utf8mb4;
@@ -26,8 +26,9 @@ CREATE TABLE `campus`  (
   `campus` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '校区名称',
   `status` int(1) NULL DEFAULT 1 COMMENT '是否删除',
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `campus`(`campus`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of campus
@@ -58,14 +59,18 @@ CREATE TABLE `dormitory_floor`  (
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `status` int(1) NULL DEFAULT 1 COMMENT '删除',
   `open` int(1) NULL DEFAULT 1 COMMENT '开放',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `floor_name`(`floor_name`, `campus_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of dormitory_floor
 -- ----------------------------
-INSERT INTO `dormitory_floor` VALUES (1, '明远楼', 1, 2, '2019-03-25 16:06:41', 1, 1);
+INSERT INTO `dormitory_floor` VALUES (1, '明远楼', 1, 1, '2019-03-25 16:06:41', 1, 1);
 INSERT INTO `dormitory_floor` VALUES (2, '明德楼', 1, 2, '2019-03-25 16:07:39', 1, 1);
+INSERT INTO `dormitory_floor` VALUES (5, '容园1号', 1, 2, '2019-03-28 13:01:03', 1, 1);
+INSERT INTO `dormitory_floor` VALUES (6, '容园2号', 1, 2, '2019-03-28 13:01:32', 1, 1);
+INSERT INTO `dormitory_floor` VALUES (7, '容园3号', 1, 2, '2019-03-28 13:01:57', 1, 1);
 
 -- ----------------------------
 -- Table structure for dormitory_room
@@ -79,13 +84,17 @@ CREATE TABLE `dormitory_room`  (
   `create_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `status` int(1) NULL DEFAULT 1 COMMENT '删除',
   `open` int(1) NULL DEFAULT 1 COMMENT '开放',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `room_name`(`room_name`, `campus_id`, `floor_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of dormitory_room
 -- ----------------------------
-INSERT INTO `dormitory_room` VALUES (1, '457', 2, 1, '2019-03-25 16:16:55', 1, 1);
+INSERT INTO `dormitory_room` VALUES (1, '457', 1, 1, '2019-03-27 18:10:12', 1, 1);
+INSERT INTO `dormitory_room` VALUES (2, '458', 2, 2, '2019-03-27 18:10:23', 1, 1);
+INSERT INTO `dormitory_room` VALUES (3, '456', 1, 1, '2019-03-28 12:51:06', 1, 1);
+INSERT INTO `dormitory_room` VALUES (4, '455', 1, 1, '2019-03-28 12:51:24', 1, 1);
 
 -- ----------------------------
 -- Table structure for repair
@@ -94,7 +103,7 @@ DROP TABLE IF EXISTS `repair`;
 CREATE TABLE `repair`  (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '报修编号',
   `room_id` int(10) NULL DEFAULT NULL COMMENT '报修宿舍',
-  `desc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
   `status` int(1) NULL DEFAULT 1 COMMENT '删除',
   `report` int(1) NULL DEFAULT 0 COMMENT '上报',
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
@@ -104,13 +113,16 @@ CREATE TABLE `repair`  (
   `floor_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '宿舍楼名称',
   `room_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '宿舍名称',
   `floor_id` int(10) NULL DEFAULT NULL COMMENT '宿舍楼编号',
+  `reg_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '登记人名称',
+  `reg_id` int(10) NULL DEFAULT NULL COMMENT '登记人ID',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of repair
 -- ----------------------------
-INSERT INTO `repair` VALUES (1, 1, '空调线路短路', 1, 0, '2019-03-25 16:53:22', 1, '统一排查', 0, '明远楼', '457', 1);
+INSERT INTO `repair` VALUES (1, 1, '空调线路短路1111', 1, 0, '2019-03-25 16:53:22', 0, '统一排查', 1, '明远楼', '457', 1, '李老师', 1);
+INSERT INTO `repair` VALUES (2, 1, '电灯不亮', 1, 1, '2019-03-28 18:11:00', 1, '统一报修', 0, '明远楼', '457', 1, '李老师', 1);
 
 -- ----------------------------
 -- Table structure for student
@@ -136,6 +148,13 @@ CREATE TABLE `student`  (
 -- Records of student
 -- ----------------------------
 INSERT INTO `student` VALUES (1, 'test', 1, '1590011', '1997-07-07 00:00:00', 2, 1, 1, '2019-03-25 16:24:48', 1, '明远楼', '457');
+INSERT INTO `student` VALUES (2, 'qwe', 1, '1590011', NULL, 2, 1, 1, '2019-03-28 14:33:53', 1, '明远楼', '457');
+INSERT INTO `student` VALUES (3, 'asd', 1, '1590011', NULL, 2, 1, 1, '2019-03-28 14:33:57', 1, '明远楼', '457');
+INSERT INTO `student` VALUES (4, 'zxc', 1, '1590011', NULL, 2, 1, 1, '2019-03-28 14:34:01', 1, '明远楼', '457');
+INSERT INTO `student` VALUES (5, 'wee', 1, '1590011', NULL, 2, 1, 1, '2019-03-28 14:34:04', 1, '明远楼', '457');
+INSERT INTO `student` VALUES (6, 'ddfff', 1, '1590011', NULL, 2, 1, 3, '2019-03-28 14:34:10', 1, '明远楼', '457');
+INSERT INTO `student` VALUES (7, 'ffff', 1, '1590011', NULL, 2, 1, 3, '2019-03-28 14:34:13', 1, '明远楼', '456');
+INSERT INTO `student` VALUES (8, 'ttttt', 1, '1590011', NULL, 2, 1, 3, '2019-03-28 14:34:17', 1, '明远楼', '456');
 
 -- ----------------------------
 -- Table structure for user
@@ -149,13 +168,17 @@ CREATE TABLE `user`  (
   `status` int(1) NULL DEFAULT 1 COMMENT '状态',
   `floor_id` int(10) NULL DEFAULT NULL COMMENT '管辖区域',
   `role` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'admin' COMMENT '角色',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  `campus_id` int(10) NULL DEFAULT NULL COMMENT '校区ID',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `username`(`username`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'admin', '$2a$10$RzpTPwFqK9.we2fFzmVxIOB3rl4hsePeXx1Dtl6wZHWOuqFXRIXHK', '李老师', 1, 1, 'sys');
+INSERT INTO `user` VALUES (1, 'admin', '$2a$10$RzpTPwFqK9.we2fFzmVxIOB3rl4hsePeXx1Dtl6wZHWOuqFXRIXHK', '李老师', 1, 1, 'sys', 1);
+INSERT INTO `user` VALUES (6, 'admin11', '$2a$10$7kDcHmyNb0Hvg9L25bR6DOxIqLy40VSf3QrLj5x3QqrbuSQBpxf2W', 'admin', 1, NULL, 'admin', NULL);
+INSERT INTO `user` VALUES (7, 'test', '$2a$10$sSz5GeFxR690Ch5XNS/.FebGoFX/Ey3nr9pPmrXe2kjW0WFD7vtTm', '测试', 1, NULL, 'admin', NULL);
 
 -- ----------------------------
 -- Table structure for violation
@@ -164,7 +187,7 @@ DROP TABLE IF EXISTS `violation`;
 CREATE TABLE `violation`  (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '违纪编号',
   `stu_id` int(10) NULL DEFAULT NULL COMMENT '学生编号',
-  `desc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
   `status` int(1) NULL DEFAULT 1 COMMENT '删除',
   `report` int(1) NULL DEFAULT 0 COMMENT '是否上报',
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
@@ -173,12 +196,15 @@ CREATE TABLE `violation`  (
   `room_id` int(11) NULL DEFAULT NULL COMMENT '宿舍编号',
   `floor_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '宿舍楼名称',
   `room_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '宿舍名称',
+  `reg_id` int(10) NULL DEFAULT NULL COMMENT '登记人ID',
+  `reg_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '登记人名称',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of violation
 -- ----------------------------
-INSERT INTO `violation` VALUES (1, 1, '使用大功率电器', 1, 0, '2019-03-25 16:34:44', 'test', 1, 1, '明远楼', '457');
+INSERT INTO `violation` VALUES (1, 1, '使用大功率电器', 1, 1, '2019-03-25 16:34:44', 'test', 1, 1, '明远楼', '457', 1, '李老师');
+INSERT INTO `violation` VALUES (2, 2, '外卖122222', 1, 1, '2019-03-28 17:39:07', 'qwe', 1, 1, '明远楼', '457', 1, '李老师');
 
 SET FOREIGN_KEY_CHECKS = 1;
