@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>用户添加--DRMS后台管理</title>
+    <title>违纪添加--DRMS后台管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -31,51 +31,57 @@
         <button id="backbtn" class="layui-btn layui-btn-xs" style="position: absolute;top: 0;right: 50px;"><i
                 class="layui-icon">&#xe65c;</i>返回
         </button>
-        <button id="refresh" class="layui-btn layui-btn-xs layui-btn-warm" style="position: absolute;top: 0;right: 120px;"><i
+        <button id="refresh" class="layui-btn layui-btn-xs layui-btn-warm"
+                style="position: absolute;top: 0;right: 120px;"><i
                 class="layui-icon">&#xe669;</i>刷新
         </button>
     </div>
     <form class="layui-form" style="width:80%;">
         <div class="layui-form-item">
-            <label class="layui-form-label">姓名</label>
+            <label class="layui-form-label">校区</label>
             <div class="layui-input-block">
-                <input name="name" type="text" class="layui-input" lay-verify="required" placeholder="请输入姓名" autocomplete="off">
+                <select name="campusId" lay-verify="required" disabled>
+                </select>
             </div>
         </div>
+        <input type="hidden" name="campusName">
         <div class="layui-form-item">
-            <label class="layui-form-label">登录名</label>
+            <label class="layui-form-label">楼栋</label>
             <div class="layui-input-block">
-                <input name="username" type="text" class="layui-input" lay-verify="required" placeholder="请输入登录名" autocomplete="off">
+                <select name="floorId" lay-verify="required" disabled>
+                </select>
             </div>
         </div>
+        <input type="hidden" name="floorName">
         <div class="layui-form-item">
-            <label class="layui-form-label">密码</label>
+            <label class="layui-form-label">寝室</label>
             <div class="layui-input-block">
-                <input name="password" type="password" class="layui-input" lay-verify="required" placeholder="请输入密码" autocomplete="off">
+                <select name="roomId" lay-verify="required" disabled>
+                </select>
+            </div>
+        </div>
+        <input type="hidden" name="roomName">
+        <div class="layui-form-item">
+            <label class="layui-form-label">学生</label>
+            <div class="layui-input-block">
+                <select name="stuId" lay-verify="required" lay-filter="addselect">
+                    <option value="">请选择学生</option>
+                </select>
+            </div>
+        </div>
+        <input type="hidden" name="name">
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">详细信息</label>
+            <div class="layui-input-block">
+                <textarea name="description" placeholder="请输入详细描述" lay-verify="required" class="layui-textarea"></textarea>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">类型</label>
             <div class="layui-input-block">
-                <select name="role">
-                    <option value="admin" checked>管理员</option>
-                    <option value="sys">系统管理员</option>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">校区</label>
-            <div class="layui-input-block">
-                <select name="campusId" lay-filter="addselect" id="campusId">
-                    <option value="">请选择校区</option>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">楼栋</label>
-            <div class="layui-input-block">
-                <select name="floorId" id="floorId">
-                    <option value="">请选择楼栋</option>
+                <select name="report" lay-verify="required">
+                    <option value="1" aria-checked="true">上报教务处</option>
+                    <option value="0">暂存</option>
                 </select>
             </div>
         </div>
@@ -89,6 +95,6 @@
 </div>
 <script type="text/javascript" src="/layui/layui.js"></script>
 <script type="text/javascript" src="/js/public.js"></script>
-<script type="text/javascript" src="/js/user/add.js"></script>
+<script type="text/javascript" src="/js/manager/wjadd.js"></script>
 </body>
 </html>

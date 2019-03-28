@@ -39,8 +39,8 @@ public class ViolationEntity implements Serializable {
     /**
      * 描述
      */
-    @TableField("desc")
-    private String desc;
+    @TableField("description")
+    private String description;
 
     /**
      * 删除

@@ -11,6 +11,7 @@ import com.why.drms.service.UserService;
 import com.why.drms.util.PassUtil;
 import com.why.drms.util.ResultUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -133,7 +134,10 @@ public class UserController {
     }
 
     @PostMapping("user")
-    public Result addUsers(@RequestBody UserEntity entity){
+    public Result addUsers(@RequestBody FormUser fu){
+        UserEntity entity = new UserEntity();
+        BeanUtils.copyProperties(fu,entity);
+        entity.setPassword(PassUtil.encoder(entity.getPassword()));
         if (service.save(entity)){
             return ResultUtil.successMsg("添加成功！");
         }

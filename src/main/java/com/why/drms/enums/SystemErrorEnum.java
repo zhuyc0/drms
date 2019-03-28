@@ -30,6 +30,10 @@ public enum SystemErrorEnum {
     ADD_ERROR(30,"添加失败！"),
     /**
      */
+    DUPLICATE_KEY(40,"该记录已存在！"),
+    /**
+     */
+
     SYSTEM_ERROR(500,"服务器异常！"),
     ;
     /**

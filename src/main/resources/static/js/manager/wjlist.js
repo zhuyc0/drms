@@ -2,37 +2,50 @@ layui.use(['table', 'form','jquery'], function () {
     let table = layui.table,
         form = layui.form,
         $ = layui.$;
-    const url = "/dormitoryFloorEntity";
+    const url = "/violationEntity";
 
-    let floor = {
-        campus:null,
+    let wjlist = {
+        roomId:0,
+        floorId:0,
         index:null,
         init: () => {
-            floor.campus = getCampus();
-            floor.initTable();
-            floor.initFromEvent();
-            floor.initTableEvent();
-            floor.initEvent();
-            floor.initCampusSelect();
+            try {
+                let common = JSON.parse(sessionStorage.getItem("manager_index_common"));
+                let room = JSON.parse(sessionStorage.getItem("manager_index_room"));
+                wjlist.roomId = room.id;
+                wjlist.floorId = common.floorId;
+            }catch (e) {
+                wjlist.roomId = 0;
+                wjlist.floorId = 0;
+                console.log(e);
+            }
+            wjlist.initTable();
+            wjlist.initFromEvent();
+            wjlist.initTableEvent();
+            wjlist.initEvent();
         },
         initTable: () => {
             //数据表格实例
             table.render({
                 elem: '#datatable'
                 , height: 'full-200'
-                , url: url+'/floors' //数据接口
+                , url: url+'/violats' //数据接口
                 , method: 'get'
+                , where:{"floorId":wjlist.floorId,"roomId":wjlist.roomId}
                 , page: true //开启分页
                 , cols: [[ //表头
                     {title: "选择", type: "checkbox"},
                     {field: 'id', hide: true}
-                    , {field: 'floorName', title: '宿舍楼名',edit:true}
-                    , {field: 'campusId', title: '校区',templet:(d)=>{
-                            let arr = floor.campus.filter(item=>item.id===d.campusId);
-                            return arr[0].campus;
-                        }}
-                    , {field: 'sex', title: '男女宿舍楼',templet: '#switchTpl'}
-                    , {field: 'open', title: '开放状态',templet: '#checkboxTpl'}
+                    , {field: 'name', title: '学生名',width: 150}
+                    , {field: 'roomName', title: '宿舍名',width: 100}
+                    , {field: 'regName', title: '登记人',width: 150}
+                    , {field: 'createTime', title: '时间',templet:(d)=>{
+                            return d.createTime.substring(0,10);
+                        },width: 150}
+                    , {field: 'report', title: '上报',templet: (d)=>{
+                            return d.report?"已上报":"暂存";
+                        },width: 100}
+                    , {field: 'description', title: '原因',edit:true}
                     , {title: '操作', align: 'center', width: 300, toolbar: "#barDemo"}
                 ]],
                 request: {
@@ -59,29 +72,6 @@ layui.use(['table', 'form','jquery'], function () {
                 });
                 return false;
             });
-
-            form.on('submit(editfrom)',(data)=>{
-                floor.postOrPutAction(data.field,"put");
-                return false;
-            });
-
-            //监听性别操作
-            form.on('switch(sexDemo)', function(obj){
-                $(obj.elem).attr("disabled", "disabled");
-                let data = {};
-                data.id = this.value;
-                data[this.name]=obj.elem.checked?1:0;
-                floor.postOrPutAction(data,"put","tip",obj.othis);
-            });
-
-            //监听锁定操作
-            form.on('checkbox(openDemo)', function(obj){
-                $(obj.elem).attr("disabled", "disabled");
-                let data = {};
-                data.id = this.value;
-                data[this.name]=obj.elem.checked?0:1;
-                floor.postOrPutAction(data,"put","tip",obj.othis);
-            });
         },
         initTableEvent:()=>{
             //操作栏
@@ -93,21 +83,20 @@ layui.use(['table', 'form','jquery'], function () {
                     layer.confirm('真的删除行么',(index)=>{
                         let ids = [];
                         ids.push(data.id);
-                        floor.delAction(ids);
+                        wjlist.delAction(ids);
                         layer.close(index);
                     });
                 }else{
-                   if (layEvent ==="edit"){
-                       $("#editmodel select[name='campusId']").val(data.campusId);
-                       $("#editmodel input[name='id']").val(data.id);
-                       form.render();
-                       floor.index = layer.open({
-                           type:1,
-                           title:"添加校区",
-                           content:$("#editmodel"),
-                           area: ['400px', '300px'],
-                           closeBtn:2
-                       });
+                   if (layEvent ==="report"){
+                       if (data.report){
+                           layer.msg("已经上报，无需重复提交",{icon: 7,time: 1500});
+                           return false;
+                       }
+                        let entity = {};
+                        entity.id = data.id;
+                        entity.report = 1;
+                        console.log(entity);
+                        wjlist.putAction(entity);
                    }
                }
             });
@@ -117,14 +106,10 @@ layui.use(['table', 'form','jquery'], function () {
                 let data = {};
                 data[obj.field] = obj.value;
                 data.id = obj.data.id;
-                floor.postOrPutAction(data,"put");
+                wjlist.putAction(data);
             });
         },
         initEvent:()=>{
-            $("#addfloor").on("click",(e)=>{
-                location.href = "/floor/add.html";
-            });
-
             $("#batchdel").on("click",(e)=>{
                 let checkStatus = table.checkStatus('datatable');
                 if (checkStatus.data.length > 0) {
@@ -134,7 +119,7 @@ layui.use(['table', 'form','jquery'], function () {
                         $.each(list, function (idx, obj) {
                             ids.push(obj.id);
                         });
-                        floor.delAction(ids);
+                        wjlist.delAction(ids);
                         layer.close(index);
                     });
                 }else {
@@ -142,17 +127,10 @@ layui.use(['table', 'form','jquery'], function () {
                 }
             });
         },
-        initCampusSelect:()=>{
-            let html = '<option value="-1">请选择一个校区</option>';
-            floor.campus.forEach(item=>html+='<option value="'+item.id+'">'+item.campus+'</option>');
-            $("#campusId").html(html);
-            $("#editmodel select[name='campusId']").html(html);
-            form.render();
-        },
         delAction:(id)=>{
             $.ajax({
                 type: "delete",
-                url:url+"/floor",
+                url:url+"/violat",
                 data:JSON.stringify(id),
                 success:(res)=>{
                     drmsMsg(res);
@@ -160,24 +138,13 @@ layui.use(['table', 'form','jquery'], function () {
                 }
             });
         },
-        postOrPutAction:(data,type = "post",way = "msg",obj)=>{
+        putAction:(data)=>{
             $.ajax({
-                type: type,
-                url:url+"/floor",
+                type: "put",
+                url:url+"/violat",
                 data:JSON.stringify(data),
                 success:(res)=>{
-                    if (res.code===0){
-                        try {
-                            layer.close(floor.index);
-                        }catch (e) {
-                            console.log(e);
-                        }
-                    }
-                    if (way === "tip"){
-                        drmsTips(res,obj);
-                    } else{
-                        drmsMsg(res);
-                    }
+                    drmsMsg(res);
                     table.reload("datatable");
                 }
             });
@@ -186,6 +153,6 @@ layui.use(['table', 'form','jquery'], function () {
 
 
     $(function () {
-        floor.init();
+        wjlist.init();
     })
 });

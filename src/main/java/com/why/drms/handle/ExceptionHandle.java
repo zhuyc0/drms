@@ -4,6 +4,7 @@ import com.why.drms.enums.SystemErrorEnum;
 import com.why.drms.exception.DrmsException;
 import com.why.drms.util.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,6 +28,8 @@ public class ExceptionHandle {
                 DrmsException exception = (DrmsException) e;
                 log.error("[自定义异常]{}",exception);
                 return ResultUtil.error(exception.getCode(),exception.getMessage());
+            }else if (e instanceof DuplicateKeyException){
+                return ResultUtil.error(SystemErrorEnum.DUPLICATE_KEY);
             }else{
                 log.error("[系统异常]{}",e);
                 return ResultUtil.error(SystemErrorEnum.SYSTEM_ERROR);

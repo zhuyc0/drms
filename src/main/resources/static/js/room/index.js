@@ -141,24 +141,21 @@ layui.use(['table', 'form','jquery'], function () {
         },
         initEvent:()=>{
             $("#addroom").on("click",(e)=>{
-                room.index = layer.open({
-                    type:1,
-                    title:"添加宿舍",
-                    content:$("#addmodel"),
-                    area: ['400px', '300px'],
-                    closeBtn:2
-                });
+                location.href = "/room/add.html";
             });
 
             $("#batchdel").on("click",(e)=>{
                 let checkStatus = table.checkStatus('datatable');
                 if (checkStatus.data.length > 0) {
-                    let list = checkStatus.data;
-                    let ids = [];
-                    $.each(list, function (idx, obj) {
-                        ids.push(obj.id);
+                    layer.confirm('真的删除行么',(index)=>{
+                        let list = checkStatus.data;
+                        let ids = [];
+                        $.each(list, function (idx, obj) {
+                            ids.push(obj.id);
+                        });
+                        room.delAction(ids);
+                        layer.close(index);
                     });
-                    room.delAction(ids);
                 }else {
                     layer.msg("没有选中任何数据!",{icon:7,time:1500});
                 }

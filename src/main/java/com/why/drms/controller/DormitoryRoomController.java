@@ -78,4 +78,15 @@ public class DormitoryRoomController {
         }
         return ResultUtil.error(SystemErrorEnum.DEL_ERROR);
     }
+
+    @GetMapping("getroombyfloorid")
+    public Result getRoomByFloorId(Integer floorId){
+        if (floorId==null || floorId<1){
+            return ResultUtil.error(SystemErrorEnum.PARAM_NULL);
+        }
+        QueryWrapper<DormitoryRoomEntity> wrapper = new QueryWrapper<>();
+        wrapper.eq("floor_id",floorId);
+        List<DormitoryRoomEntity> list = service.list(wrapper);
+        return ResultUtil.success(list,list.size());
+    }
 }

@@ -13,23 +13,55 @@
 	<link rel="stylesheet" href="/css/font_eolqem241z66flxr.css" media="all" />
 </head>
 <body class="childrenBody">
-	<blockquote class="layui-elem-quote news_search">
+<blockquote class="layui-elem-quote news_search">
+	<form class="layui-form" action="">
 		<div class="layui-inline">
-		    <div class="layui-input-inline">
-		    	<input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">
-		    </div>
-		    <a class="layui-btn search_btn">查询</a>
+			<div class="layui-input-inline">
+				<input type="text" name="roomName" placeholder="宿舍名称" class="layui-input search_input" autocomplete="off">
+			</div>
+			<div class="layui-input-inline">
+				<select name="campusId" id="campusId" lay-filter="queryselect">
+					<option value="-1">请选择一个校区</option>
+				</select>
+			</div>
+			<div class="layui-input-inline">
+				<select name="floorId" id="floorId">
+					<option value="-1">请选择楼栋</option>
+				</select>
+			</div>
+			<div class="layui-input-inline">
+				<select name="open" lay-verify="">
+					<option value="-1">请选择开放状态</option>
+					<option value="1">开放</option>
+					<option value="0">关闭</option>
+				</select>
+			</div>
+			<div class="layui-input-inline" style="width: 190px;">
+				<button class="layui-btn" lay-submit lay-filter="queryform">查询</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			</div>
+			<div class="layui-inline">
+				<div class="layui-inline">
+					<a class="layui-btn layui-btn-warm" id="refresh"><i class="layui-icon">&#xe669;</i>刷新</a>
+				</div>
+			</div>
 		</div>
-		<div class="layui-inline">
-			<a class="layui-btn layui-btn-normal newsAdd_btn">添加</a>
-		</div>
-		<div class="layui-inline">
-			<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
-		</div>
-	</blockquote>
-	<table id="demo" lay-filter="test"></table>
+	</form>
+</blockquote>
+<table id="datatable" lay-filter="datatable"></table>
 	<script type="text/javascript" src="/layui/layui.js"></script>
 	<script type="text/javascript" src="/js/public.js"></script>
-	<script type="text/javascript" src="/js/campus/index.js"></script>
+	<script type="text/javascript" src="/js/manager/index.js"></script>
+<script type="text/html" id="barDemo1">
+	<a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="stu_edit"><i class="layui-icon">&#xe642;</i>变更信息</a>
+</script>
+<script type="text/html" id="barDemo2">
+	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="wj_add"><i class="layui-icon">&#xe61f;</i>违纪登记</a>
+	<a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="wj_show"><i class="layui-icon">&#xe615;</i>查看</a>
+</script>
+<script type="text/html" id="barDemo3">
+	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="wx_add"><i class="layui-icon">&#xe61f;</i>维修登记</a>
+	<a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="wx_show"><i class="layui-icon">&#xe615;</i>查看</a>
+</script>
 </body>
 </html>

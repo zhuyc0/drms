@@ -26,53 +26,45 @@
     </style>
 </head>
 <body class="childrenBody">
-<div style="margin: 20px 20px">
-    <div style="width: 100%;position: relative">
-        <button id="backbtn" class="layui-btn layui-btn-xs" style="position: absolute;top: 0;right: 0;"><i
+<div style="margin: 5px 20px">
+    <div style="width: 100%;height:30px;position: relative">
+        <button id="backbtn" class="layui-btn layui-btn-xs" style="position: absolute;top: 0;right: 50px;"><i
                 class="layui-icon">&#xe65c;</i>返回
+        </button>
+        <button id="refresh" class="layui-btn layui-btn-xs layui-btn-warm" style="position: absolute;top: 0;right: 120px;"><i
+                class="layui-icon">&#xe669;</i>刷新
         </button>
     </div>
     <form class="layui-form" style="width:80%;">
         <div class="layui-form-item">
-            <label class="layui-form-label">姓名</label>
+            <label class="layui-form-label">楼栋名称</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input" lay-verify="required" placeholder="请输入姓名" autocomplete="off">
+                <input name="floorName" type="text" class="layui-input" lay-verify="required" placeholder="请输入楼栋名称" autocomplete="off">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">登录名</label>
+            <label class="layui-form-label">男女宿舍</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input" lay-verify="required" placeholder="请输入登录名" autocomplete="off">
+                <select name="sex">
+                    <option value="1" checked>男生</option>
+                    <option value="0">女生</option>
+                </select>
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">密码</label>
+            <label class="layui-form-label">开放状态</label>
             <div class="layui-input-block">
-                <input type="password" class="layui-input" lay-verify="required" placeholder="请输入密码" autocomplete="off">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">类型</label>
-            <div class="layui-input-block">
-                <select name="role">
-                    <option value="admin" checked>管理员</option>
-                    <option value="sys">系统管理员</option>
+                <select name="open">
+                    <option value="1" checked>开放</option>
+                    <option value="0">关闭</option>
                 </select>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">校区</label>
             <div class="layui-input-block">
-                <select name="campusId" lay-filter="campusId" id="campusId">
+                <select name="campusId" id="campusId" lay-verify="required">
                     <option value="">请选择校区</option>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">楼栋</label>
-            <div class="layui-input-block">
-                <select name="floorId" id="floorId">
-                    <option value="">请选择楼栋</option>
                 </select>
             </div>
         </div>
@@ -86,6 +78,6 @@
 </div>
 <script type="text/javascript" src="/layui/layui.js"></script>
 <script type="text/javascript" src="/js/public.js"></script>
-<script type="text/javascript" src="/js/user/add.js"></script>
+<script type="text/javascript" src="/js/floor/add.js"></script>
 </body>
 </html>

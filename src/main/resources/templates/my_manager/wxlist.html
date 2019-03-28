@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>维修--DRMS后台管理</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="/css/font_eolqem241z66flxr.css" media="all" />
+</head>
+<body class="childrenBody">
+<blockquote class="layui-elem-quote news_search">
+	<form class="layui-form" action="">
+		<div class="layui-inline">
+			<div class="layui-input-inline" style="width: 150px;">
+				<input type="text" name="roomName" placeholder="宿舍名" class="layui-input search_input" autocomplete="off">
+			</div>
+			<div class="layui-input-inline" style="width: 150px;">
+				<input type="text" name="regName" placeholder="登记人" class="layui-input search_input" autocomplete="off">
+			</div>
+			<div class="layui-input-inline" style="width: 100px;">
+				<select name="type" lay-verify="">
+					<option value="">类型</option>
+					<option value="1">统一排查</option>
+					<option value="0">人为损坏</option>
+				</select>
+			</div>
+			<div class="layui-input-inline" style="width: 100px;">
+				<select name="report" lay-verify="">
+					<option value="">上报状态</option>
+					<option value="1">上报</option>
+					<option value="0">暂存</option>
+				</select>
+			</div>
+			<div class="layui-input-inline" style="width: 100px;">
+				<select name="complete" lay-verify="">
+					<option value="">结案</option>
+					<option value="1">是</option>
+					<option value="0">否</option>
+				</select>
+			</div>
+			<div class="layui-input-inline">
+				<input id="start" type="text" placeholder="开始时间" autocomplete="off" class="layui-input"
+					   name="startDate">
+			</div>
+			<div class="layui-input-inline">
+				-
+			</div>
+			<div class="layui-input-inline">
+				<input id="end" type="text" placeholder="结束时间" autocomplete="off" class="layui-input" name="endDate">
+			</div>
+			<div class="layui-input-inline" style="width: 190px;">
+				<button class="layui-btn" lay-submit lay-filter="queryform">查询</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			</div>
+		</div>
+		<div class="layui-inline">
+			<div class="layui-inline">
+				<a class="layui-btn layui-btn-normal" id="backbtn"><i class="layui-icon">&#xe65c;</i>返回</a>
+			</div>
+			<div class="layui-inline">
+				<a class="layui-btn layui-btn-warm" id="refresh"><i class="layui-icon">&#xe669;</i>刷新</a>
+			</div>
+			<div class="layui-inline">
+				<a class="layui-btn layui-btn-danger" id="batchdel"><i class="layui-icon">&#xe640;</i>批量删除</a>
+			</div>
+		</div>
+	</form>
+</blockquote>
+<table id="datatable" lay-filter="datatable"></table>
+
+<script type="text/javascript" src="/layui/layui.js"></script>
+<script type="text/javascript" src="/js/public.js"></script>
+<script type="text/javascript" src="/js/manager/wxlist.js"></script>
+<script type="text/html" id="barDemo">
+	<a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="end">结案</a>
+	<a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="report">上报教务处</a>
+	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+</script>
+</body>
+</html>

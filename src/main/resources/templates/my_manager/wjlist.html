@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>宿舍--DRMS后台管理</title>
+	<title>违纪--DRMS后台管理</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -16,25 +16,31 @@
 <blockquote class="layui-elem-quote news_search">
 	<form class="layui-form" action="">
 		<div class="layui-inline">
-			<div class="layui-input-inline">
+			<div class="layui-input-inline" style="width: 100px;">
 				<input type="text" name="roomName" placeholder="宿舍名称" class="layui-input search_input" autocomplete="off">
 			</div>
-			<div class="layui-input-inline">
-				<select name="campusId" id="campusId" lay-filter="queryselect">
-					<option value="-1">请选择一个校区</option>
+			<div class="layui-input-inline" style="width: 150px;">
+				<input type="text" name="name" placeholder="学生名" class="layui-input search_input" autocomplete="off">
+			</div>
+			<div class="layui-input-inline" style="width: 150px;">
+				<input type="text" name="regName" placeholder="登记人" class="layui-input search_input" autocomplete="off">
+			</div>
+			<div class="layui-input-inline" style="width: 100px;">
+				<select name="report" lay-verify="">
+					<option value="">上报状态</option>
+					<option value="1">上报</option>
+					<option value="0">暂存</option>
 				</select>
 			</div>
 			<div class="layui-input-inline">
-				<select name="floorId" id="floorId">
-					<option value="-1">请选择楼栋</option>
-				</select>
+				<input id="start" type="text" placeholder="开始时间" autocomplete="off" class="layui-input"
+					   name="startDate">
 			</div>
 			<div class="layui-input-inline">
-				<select name="open" lay-verify="">
-					<option value="-1">请选择开放状态</option>
-					<option value="1">开放</option>
-					<option value="0">关闭</option>
-				</select>
+				-
+			</div>
+			<div class="layui-input-inline">
+				<input id="end" type="text" placeholder="结束时间" autocomplete="off" class="layui-input" name="endDate">
 			</div>
 			<div class="layui-input-inline" style="width: 190px;">
 				<button class="layui-btn" lay-submit lay-filter="queryform">查询</button>
@@ -43,7 +49,7 @@
 		</div>
 		<div class="layui-inline">
 			<div class="layui-inline">
-				<a class="layui-btn layui-btn-normal" id="addroom"><i class="layui-icon">&#xe654;</i>添加</a>
+				<a class="layui-btn layui-btn-normal" id="backbtn"><i class="layui-icon">&#xe65c;</i>返回</a>
 			</div>
 			<div class="layui-inline">
 				<a class="layui-btn layui-btn-warm" id="refresh"><i class="layui-icon">&#xe669;</i>刷新</a>
@@ -56,44 +62,12 @@
 </blockquote>
 <table id="datatable" lay-filter="datatable"></table>
 
-<div id="editmodel" style="display: none;margin: 20px 30px;">
-	<form action="" class="layui-form">
-		<input type="hidden" name="id" value="-1">
-		<div class="layui-form-item">
-			<label class="layui-form-label">校区名称</label>
-			<div class="layui-input-block">
-				<select name="campusId" lay-filter="editselect">
-					<option value="-1">请选择一个校区</option>
-				</select>
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">楼栋名称</label>
-			<div class="layui-input-block">
-				<select name="floorId">
-					<option value="-1">请选择楼栋</option>
-				</select>
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<div class="layui-input-block">
-				<button class="layui-btn" lay-submit lay-filter="editfrom">立即提交</button>
-			</div>
-		</div>
-	</form>
-</div>
 <script type="text/javascript" src="/layui/layui.js"></script>
 <script type="text/javascript" src="/js/public.js"></script>
-<script type="text/javascript" src="/js/room/index.js"></script>
+<script type="text/javascript" src="/js/manager/wjlist.js"></script>
 <script type="text/html" id="barDemo">
-	<!--<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>-->
-	<a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>更改校区</a>
+	<a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="report">上报教务处</a>
 	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 </script>
-<script type="text/html" id="checkboxTpl">
-	<!-- 这里的 checked 的状态只是演示 -->
-	<input type="checkbox" name="open" value="{{d.id}}" title="关闭" lay-filter="openDemo" {{ !d.open ? 'checked' : '' }}>
-</script>
-
 </body>
 </html>

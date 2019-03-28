@@ -39,13 +39,21 @@ layui.use(['table', 'form', 'jquery'], function () {
                     , {
                         field: 'campusId', title: '校区', templet: (d) => {
                             let arr = user.campus.filter(item => item.id === d.campusId);
-                            return arr[0].campus;
+                            try {
+                                return arr[0].campus
+                            }catch (e) {
+                                return "";
+                            }
                         }
                     }
                     , {
                         field: 'floorId', title: '宿舍楼', templet: (d) => {
                             let arr = user.floors.filter(item => item.id === d.floorId);
-                            return arr[0].floorName;
+                            try {
+                                return arr[0].floorName;
+                            }catch (e) {
+                                return "";
+                            }
                         }
                     }
                     , {title: '操作', align: 'center', width: 300, toolbar: "#barDemo"}
@@ -147,12 +155,15 @@ layui.use(['table', 'form', 'jquery'], function () {
             $("#batchdel").on("click", (e) => {
                 let checkStatus = table.checkStatus('datatable');
                 if (checkStatus.data.length > 0) {
-                    let list = checkStatus.data;
-                    let ids = [];
-                    $.each(list, function (idx, obj) {
-                        ids.push(obj.id);
+                    layer.confirm('真的删除行么',(index)=>{
+                        let list = checkStatus.data;
+                        let ids = [];
+                        $.each(list, function (idx, obj) {
+                            ids.push(obj.id);
+                        });
+                        user.delAction(ids);
+                        layer.close(index);
                     });
-                    user.delAction(ids);
                 } else {
                     layer.msg("没有选中任何数据!", {icon: 7, time: 1500});
                 }
