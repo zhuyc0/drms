@@ -30,12 +30,12 @@ const navs = [{
 	"spread" : false
 },{
 	"title" : "违纪统计",
-	"icon" : "&#xe656;",
-	"href" : "my_manager/wjshow.html",
+	"icon" : "&#xe629;",
+	"href" : "tongji/wjshow.html",
 	"spread" : false
 },{
 	"title" : "报修统计",
-	"icon" : "&#xe656;",
-	"href" : "my_manager/wxshow.html",
+	"icon" : "&#xe629;",
+	"href" : "tongji/wxshow.html",
 	"spread" : false
 }];
