@@ -160,8 +160,9 @@ layui.use(['table', 'form','jquery'], function () {
                 if (res.code===0) {
                     let html = "无违纪记录";
                     try {
+                        html = "";
                         res.data.forEach(x=>{
-                            x.createTime
+                            html += '<p>'+x.createTime.substring(0,10)+'</p>'+'<p>'+x.description+'</p>';
                         });
                     }catch (e) {
                         html = "无违纪记录";

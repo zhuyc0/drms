@@ -28,4 +28,14 @@ const navs = [{
 	"icon" : "&#xe656;",
 	"href" : "my_manager/index.html",
 	"spread" : false
+},{
+	"title" : "违纪统计",
+	"icon" : "&#xe656;",
+	"href" : "my_manager/wjshow.html",
+	"spread" : false
+},{
+	"title" : "报修统计",
+	"icon" : "&#xe656;",
+	"href" : "my_manager/wxshow.html",
+	"spread" : false
 }];
