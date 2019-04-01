@@ -12,6 +12,7 @@ import com.why.drms.service.DormitoryFloorService;
 import com.why.drms.util.ResultUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,6 +55,7 @@ public class DormitoryFloorController {
     }
 
     @PostMapping("floor")
+    @PreAuthorize("hasRole('SYS')")
     public Result addFloor(@RequestBody DormitoryFloorEntity entity){
         if (service.save(entity)){
             return ResultUtil.successMsg("添加成功！");
@@ -62,6 +64,7 @@ public class DormitoryFloorController {
     }
 
     @PutMapping("floor")
+    @PreAuthorize("hasRole('SYS')")
     public Result putFloor(@RequestBody DormitoryFloorEntity entity){
         if (entity.getId()==null||entity.getId()<0){
             return ResultUtil.error(SystemErrorEnum.PARAM_NULL);
@@ -73,6 +76,7 @@ public class DormitoryFloorController {
     }
 
     @DeleteMapping("floor")
+    @PreAuthorize("hasRole('SYS')")
     public Result delFloor(@RequestBody List<Integer> ids){
         if (ids==null||ids.size()<1){
             return ResultUtil.error(SystemErrorEnum.PARAM_NULL);

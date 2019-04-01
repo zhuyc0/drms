@@ -5,10 +5,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.why.drms.entity.Result;
 import com.why.drms.entity.StudentEntity;
 import com.why.drms.enums.SystemErrorEnum;
+import com.why.drms.service.ResolveExcelService;
 import com.why.drms.service.StudentService;
 import com.why.drms.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -25,6 +27,9 @@ import java.util.List;
 public class StudentController {
     @Autowired
     StudentService service;
+
+    @Autowired
+    ResolveExcelService excelService;
 
     @PutMapping("student")
     public Result putStu(@RequestBody StudentEntity entity){
@@ -57,5 +62,11 @@ public class StudentController {
             return ResultUtil.successMsg("删除成功!");
         }
         return ResultUtil.error(SystemErrorEnum.DEL_ERROR);
+    }
+
+    @PostMapping("importexcel")
+    public Result  importExcel(MultipartFile file){
+        List<StudentEntity> list = excelService.resolveExcel(file);
+        return ResultUtil.successMsg(service.saveByExcel(list));
     }
 }

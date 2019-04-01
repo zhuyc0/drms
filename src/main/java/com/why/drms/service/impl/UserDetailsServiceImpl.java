@@ -44,7 +44,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user==null){
             throw new UsernameNotFoundException("用户不存在！");
         }
-        GrantedAuthority grantedAuthority= new SimpleGrantedAuthority(user.getRole());
+        GrantedAuthority grantedAuthority= new SimpleGrantedAuthority("ROLE_"+user.getRole());
         List<GrantedAuthority> list = new ArrayList<>();
         list.add(grantedAuthority);
         return new User(username,user.getPassword(),list);

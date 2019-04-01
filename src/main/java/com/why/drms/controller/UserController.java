@@ -13,6 +13,7 @@ import com.why.drms.util.ResultUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
@@ -67,7 +68,9 @@ public class UserController {
     }
 
     @PostMapping("changepwd")
-    public Result changePwd(Authentication authentication,String oldpwd,String newpwd) {
+    public Result changePwd(Authentication authentication,@RequestBody ChangePass cp) {
+        String oldpwd = cp.getOldpwd();
+        String newpwd = cp.getNewpwd();
         if (StringUtils.isBlank(oldpwd) || StringUtils.isBlank(newpwd)) {
             return ResultUtil.error(SystemErrorEnum.PARAM_NULL);
         }
@@ -112,6 +115,7 @@ public class UserController {
     }
 
     @PutMapping("user")
+    @PreAuthorize("hasRole('SYS')")
     public Result putUsers(@RequestBody UserEntity entity){
         if (entity.getId()==null||entity.getId()<0){
             return ResultUtil.error(SystemErrorEnum.PARAM_NULL);
@@ -123,6 +127,7 @@ public class UserController {
     }
 
     @DeleteMapping("user")
+    @PreAuthorize("hasRole('SYS')")
     public Result delUsers(@RequestBody List<Integer> ids){
         if (ids==null||ids.size()<1){
             return ResultUtil.error(SystemErrorEnum.PARAM_NULL);
@@ -134,6 +139,7 @@ public class UserController {
     }
 
     @PostMapping("user")
+    @PreAuthorize("hasRole('SYS')")
     public Result addUsers(@RequestBody FormUser fu){
         UserEntity entity = new UserEntity();
         BeanUtils.copyProperties(fu,entity);

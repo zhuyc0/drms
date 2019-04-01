@@ -123,6 +123,7 @@ layui.use(['table', 'form', 'jquery'], function () {
                 } else {
                     if (layEvent === "edit") {
                         $("#editmodel select[name='campusId']").val(data.campusId);
+                        $("#editmodel select[name='role']").val(data.role);
                         let arr = user.floors.filter(item => item.campusId === data.campusId);
                         user.initEditSelect(arr);
                         $("#editmodel select[name='floorId']").val(data.floorId);

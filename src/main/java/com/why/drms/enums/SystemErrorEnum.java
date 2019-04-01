@@ -33,7 +33,24 @@ public enum SystemErrorEnum {
     DUPLICATE_KEY(40,"该记录已存在！"),
     /**
      */
-
+    FILE_NULL(50,"文件对象为空！"),
+    /**
+     */
+    FILE_TYPE_ERROR(51,"文件格式错误！"),
+    /**
+     */
+    FILE_READ_ERROR(52,"文件读取出错！"),
+    /**
+     */
+    FILE_DATA_ERROR(53,"文件中无正确数据或者已经导入完成！"),
+    /**
+     */
+    INIT_STU_ERROR(60,"初始化失败！"),
+    /**
+     */
+    ROLE_ERROR(401,"权限不足！"),
+    /**
+     */
     SYSTEM_ERROR(500,"服务器异常！"),
     ;
     /**

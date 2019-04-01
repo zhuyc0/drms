@@ -12,6 +12,7 @@ import com.why.drms.service.DormitoryRoomService;
 import com.why.drms.util.ResultUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,6 +51,7 @@ public class DormitoryRoomController {
     }
 
     @PostMapping("room")
+    @PreAuthorize("hasRole('SYS')")
     public Result addRoom(@RequestBody DormitoryRoomEntity entity){
         if (service.save(entity)){
             return ResultUtil.successMsg("添加成功！");
@@ -58,6 +60,7 @@ public class DormitoryRoomController {
     }
 
     @PutMapping("room")
+    @PreAuthorize("hasRole('SYS')")
     public Result putRoom(@RequestBody DormitoryRoomEntity entity){
         if (entity.getId()==null||entity.getId()<0){
             return ResultUtil.error(SystemErrorEnum.PARAM_NULL);
@@ -69,6 +72,7 @@ public class DormitoryRoomController {
     }
 
     @DeleteMapping("room")
+    @PreAuthorize("hasRole('SYS')")
     public Result delRoom(@RequestBody List<Integer> ids){
         if (ids==null||ids.size()<1){
             return ResultUtil.error(SystemErrorEnum.PARAM_NULL);

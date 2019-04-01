@@ -28,7 +28,7 @@ public class CodeGenerator {
 
 //      全局配置
         GlobalConfig gc = new GlobalConfig();
-        gc.setOutputDir("C://springboot//drms//src//main//java");
+        gc.setOutputDir("C://drms//src//main//java");
         gc.setFileOverride(true);
         gc.setAuthor("why");
 //        gc.setEnableCache(true);

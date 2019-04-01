@@ -1,5 +1,6 @@
 package com.why.drms.exception;
 
+import com.why.drms.enums.SystemErrorEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,5 +23,8 @@ public class DrmsException extends RuntimeException{
         super(msg);
         this.code = code;
     }
-
+    public DrmsException(SystemErrorEnum error){
+        super(error.getMsg());
+        this.code = error.getCode();
+    }
 }

@@ -1,12 +1,15 @@
 package com.why.drms.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -20,6 +23,8 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("student")
+@NoArgsConstructor
+@AllArgsConstructor
 public class StudentEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,7 +57,7 @@ public class StudentEntity implements Serializable {
      * 出生日期
      */
     @TableField("birthday")
-    private LocalDateTime birthday;
+    private String birthday;
 
     /**
      * 校区编号
@@ -97,5 +102,29 @@ public class StudentEntity implements Serializable {
     @TableField("room_name")
     private String roomName;
 
+    /**
+     * 学籍号
+     */
+    @TableField("stu_no")
+    private String stuNo;
 
+    /**
+     * 学籍号
+     */
+    @TableField("campus_name")
+    private String campusName;
+
+    public StudentEntity(List<String> list) {
+        this.stuNo =  list.get(0);
+        this.name = list.get(1);
+        this.sex = "男".equals(list.get(2))?1:0;
+        this.clasz = list.get(3);
+        this.birthday = list.get(4);
+        this.campusName = list.get(5);
+        this.campusId = Integer.valueOf(list.get(6).split("\\.")[0]);
+        this.floorName = list.get(7);
+        this.floorId = Integer.valueOf(list.get(8).split("\\.")[0]);
+        this.roomName =list.get(9);
+        this.roomId = Integer.valueOf(list.get(10).split("\\.")[0]);
+    }
 }

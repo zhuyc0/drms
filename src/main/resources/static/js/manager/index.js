@@ -10,11 +10,11 @@ layui.use(['table', 'form','jquery'], function () {
             index.initTableEvent();
         },
         initQuery:()=>{
-            let info = JSON.parse(sessionStorage.getItem("manager_index_common"));
+            /*let info = JSON.parse(sessionStorage.getItem("manager_index_common"));
             if (info){
                 campusInnerHtml(info);
                 return false;
-            }
+            }*/
             $.get("/manager/getfloorandroominfo",(res=>{
                 if (res.code ===0){
                     let data = res.data;

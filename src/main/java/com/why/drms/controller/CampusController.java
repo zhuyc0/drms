@@ -13,6 +13,7 @@ import com.why.drms.service.CampusService;
 import com.why.drms.util.ResultUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,6 +55,7 @@ public class CampusController {
     }
 
     @DeleteMapping("campus")
+    @PreAuthorize("hasAnyAuthority('SYS')")
     public Result delCampus(@RequestBody Integer id){
         if (id==null || id<0){
             return ResultUtil.error(SystemErrorEnum.PARAM_NULL);
@@ -68,6 +70,7 @@ public class CampusController {
     }
 
     @PutMapping("campus")
+    @PreAuthorize("hasAnyAuthority('SYS')")
     public Result putCampus(@RequestBody CampusEntity entity){
         if (entity.getId()==null || entity.getId()<0){
             return ResultUtil.error(SystemErrorEnum.PARAM_NULL);
@@ -79,6 +82,7 @@ public class CampusController {
     }
 
     @PostMapping("campus")
+    @PreAuthorize("hasAnyAuthority('SYS')")
     public Result addCampus(@RequestBody CampusEntity entity){
         if (StringUtils.isBlank(entity.getCampus())){
             return ResultUtil.error(SystemErrorEnum.PARAM_NULL);

@@ -34,7 +34,7 @@ layui.use(['table', 'form','jquery'], function () {
                             }}
                     , {field: 'birthday', title: '出生日期',templet: (d)=>{
                             const data = d.birthday;
-                            return data?data.substring(0,10):"空记录";
+                            return data?data.substring(0,10):"";
                         }}
                     , {title: '操作', align: 'center', width: 300, toolbar: "#barDemo"}
                 ]],

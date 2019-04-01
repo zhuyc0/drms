@@ -83,7 +83,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(authenticationEntryPoint);
         http.logout().logoutUrl("/logout.html")
                 .logoutSuccessHandler(logoutSuccessHandler);
-        http.authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests()
+                .antMatchers("/user/**","/floor/**","/room/**","/campus/**").hasRole("SYS")
+                .anyRequest().authenticated();
 
         //解决中文乱码问题
         CharacterEncodingFilter filter = new CharacterEncodingFilter();

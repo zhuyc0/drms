@@ -31,6 +31,7 @@ layui.use(['table', 'form','jquery'], function () {
                     , {field: 'type', title: '类型',templet:(d)=>{
                             return d.type?"统一排查":"人为损坏";
                         },width: 150}
+                    , {field: 'principal', title: '描述',width: 200}
                     , {field: 'report', title: '上报',templet: (d)=>{
                             return d.report?"已上报":"暂存";
                         },width: 100}
@@ -88,7 +89,7 @@ layui.use(['table', 'form','jquery'], function () {
                         entity.report = 1;
                         wxlist.putAction(entity);
                }else if (layEvent ==="end"){
-                   if (data.report){
+                   if (data.complete){
                        layer.msg("已经结案，无需重复提交",{icon: 7,time: 1500});
                        return false;
                    }

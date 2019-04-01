@@ -13,8 +13,25 @@ layui.define(["element","jquery"],function(exports){
 
 	//显示左侧菜单
 	if($(".navBar").html() == ''){
+		let menus = [];
+		$.ajax({
+			url:"/menuEntity/menu",
+			type:"GET",
+			async:false,
+			success:res=>{
+				if (res.code===0){
+					try {
+						menus = res.data.map(x=>{x.spread=false;return x;});
+					}catch (e) {
+						menus = [];
+						console.log(e);
+					}
+				}
+				console.log(menus);
+			}
+		});
 		var _this = this;
-		$(".navBar").html(navBar(navs)).height($(window).height()-230);
+		$(".navBar").html(navBar(menus)).height($(window).height()-230);
 		element.init();  //初始化页面元素
 		$(window).resize(function(){
 			$(".navBar").height($(window).height()-230);

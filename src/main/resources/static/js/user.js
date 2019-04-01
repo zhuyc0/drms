@@ -69,7 +69,7 @@ layui.use(['form','layer','upload','laydate'],function(){
 
         //修改密码
         form.on("submit(changePwd)",function(data){
-        	$.post("/userEntity/changepwd",data.field,(res)=>{
+        	$.post("/userEntity/changepwd",JSON.stringify(data.field),(res)=>{
                 if (res.code===0){
                     layer.msg(res.msg,{
                         icon:6,
